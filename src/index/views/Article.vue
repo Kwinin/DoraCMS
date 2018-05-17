@@ -1,98 +1,104 @@
 <template>
-    <div class="contentContainer">
-        <div class="mainbody content-detail">
-            <el-row :gutter="0">
-                    <el-col :xs="1" :sm="1" :md="1" :lg="1" :xl="5">
-                        <div class="grid-content bg-purple">&nbsp;</div>
+  <div class="contentContainer">
+    <div class="mainbody content-detail">
+      <el-row :gutter="0">
+        <el-col :xs="1" :sm="1" :md="1" :lg="1" :xl="5">
+          <div class="grid-content bg-purple">&nbsp;</div>
+        </el-col>
+        <el-col :xs="22" :sm="22" :md="22" :lg="22" :xl="14" class="main-details">
+          <el-row :gutter="15">
+            <el-col :xs="24" :sm="17" :md="17" :lg="17">
+              <div class="hentry">
+                <h2 class="content-title">{{article.doc.title}}&nbsp;<span v-show="article.doc.from == '2'"
+                                                                           class="from">[转]</span></h2>
+                <div class="content-author">
+                  <ul>
+                    <li class="author-name">
+                      {{article.doc.author ? article.doc.author.userName:article.doc.uAuthor.userName}}
+                    </li>
+                    <li>
+                      <span class="dot">&nbsp;•&nbsp;</span>{{cateName}}
+                    </li>
+                    <li>
+                      <span class="dot">&nbsp;•&nbsp;</span>{{article.doc.date}}
+                    </li>
+                    <li>
+                      <span class="dot">&nbsp;•&nbsp;</span>{{article.doc.clickNum}}&nbsp;次阅读
+                    </li>
+                  </ul>
+                </div>
+                <div v-html="article.doc.comments" class="content-main">
+                </div>
+                <div class="meta-bottom">
+                  <el-row :gutter="10">
+                    <el-col :xs="24" :sm="14" :md="14" :lg="14" :xl="14">
+                       <div class="like"> <el-button type="primary" plain  @click="likeIt(article.doc._id)"><i class="fa fa-heart-o"></i>&nbsp;喜欢 ({{article.doc.likeNum}})</el-button></div>
+                      <div class="meta-tags" v-if="article.doc.tags && article.doc.tags.length>0">
+                        <el-button type="primary" @click="searchByTag(tag.name)" plain v-for="tag in article.doc.tags"
+                                   size="mini" :key="tag._id">{{tag.name}}
+                        </el-button>
+                      </div>
                     </el-col>
-                    <el-col :xs="22" :sm="22" :md="22" :lg="22" :xl="14" class="main-details">
-                        <el-row :gutter="15">
-                            <el-col :xs="24" :sm="17" :md="17" :lg="17" >
-                                <div class="hentry">
-                                    <h2 class="content-title">{{article.doc.title}}&nbsp;<span v-show="article.doc.from == '2'" class="from">[转]</span></h2>
-                                    <div class="content-author">
-                                        <ul>
-                                            <li class="author-name">
-                                                {{article.doc.author ? article.doc.author.userName:article.doc.uAuthor.userName}}
-                                            </li>
-                                            <li>
-                                                <span class="dot">&nbsp;•&nbsp;</span>{{cateName}}
-                                            </li>
-                                            <li>
-                                                <span class="dot">&nbsp;•&nbsp;</span>{{article.doc.date}}
-                                            </li>
-                                            <li>
-                                                <span class="dot">&nbsp;•&nbsp;</span>{{article.doc.clickNum}}&nbsp;次阅读
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div v-html="article.doc.comments" class="content-main">
-                                    </div>
-                                    <div class="meta-bottom">
-                                        <el-row :gutter="10">
-                                        <el-col :xs="24" :sm="14" :md="14" :lg="14" :xl="14">
-                                            <!-- <div class="like"> <el-button type="primary" plain  @click="likeIt(article.doc._id)"><i class="fa fa-heart-o"></i>&nbsp;喜欢 ({{article.doc.likeNum}})</el-button></div> -->
-                                            <div class="meta-tags" v-if="article.doc.tags && article.doc.tags.length>0">
-                                                <el-button type="primary" @click="searchByTag(tag.name)" plain v-for="tag in article.doc.tags" size="mini" :key="tag._id">{{tag.name}}</el-button>
-                                            </div>
-                                        </el-col>
-                                        <el-col :xs="24" :sm="10" :md="10" :lg="10" :xl="10">
-                                            <div class="share-group" v-if="systemConfig.data">
-                                                <ul>
-                                                    <li class="like">
-                                                        <i class="fa fa-heart" @click="likeIt(article.doc._id)"></i>&nbsp;<span>{{article.doc.likeNum}}</span>
-                                                    </li>
-                                                    <li class="qq" @click="shareToQq(article.doc)">
-                                                        <a><i class="fa fa-qq"></i></a>
-                                                    </li>
-                                                    <el-popover
-                                                    ref="popover1"
-                                                    placement="top-start"
-                                                    width="200"
-                                                    trigger="click"
-                                                    popper-class="prop-wechat"
-                                                    content="这是一段内容,这是一段内容,这是一段内容,这是一段内容。">
-                                                     <template slot-scope="scope">
-                                                         <h5>打开微信“扫一扫”，打开网页后点击屏幕右上角分享按钮</h5>
-                                                         <img :src="'/api/qrImg?detailLink='+systemConfig.data[0].siteDomain+'/details/'+article.doc._id+'.html'" :alt="article.doc.title">
-                                                     </template>
-                                                    </el-popover>
-                                                    <li class="wechat">
-                                                        <a v-popover:popover1>
-                                                            <i class="fa fa-wechat"></i>
-                                                        </a>
-                                                    </li>
-                                                    <li class="weibo">
-                                                        <a :href="'http://service.weibo.com/share/share.php?url='+systemConfig.data[0].siteDomain+'/details/'+article.doc._id+'.html&amp;title='+article.doc.discription+'&amp;pic='+((article.doc.sImg).indexOf('cdn') > -1 ?'':systemConfig.data[0].siteDomain)+article.doc.sImg+'&amp;appkey=902932546 target=_blank'">
-                                                        <i class="fa fa-weibo"></i>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </el-col>
-                                        </el-row>
-                                    </div>
-                                    <RandomArticle :articles="article.randomArticles" />
-                                    <Messages :userMessageList="messages.data" :contentId="article.doc._id" />
-                                </div>
-                            </el-col>
-                            <el-col :xs="0" :sm="7" :md="7" :lg="7" class="content-mainbody-right">
-                                <div class="grid-content bg-purple-light title">
-                                    <CatesMenu :typeId="typeId" />
-                                    <RecentContents :recentItems="recentArticle" />
-                                </div>
-                            </el-col>
-                        </el-row>
+                    <el-col :xs="24" :sm="10" :md="10" :lg="10" :xl="10">
+                      <div class="share-group" v-if="systemConfig.data">
+                        <ul>
+                          <li class="like">
+                            <i class="fa fa-heart" @click="likeIt(article.doc._id)"></i>&nbsp;<span>{{article.doc.likeNum}}</span>
+                          </li>
+                          <li class="qq" @click="shareToQq(article.doc)">
+                            <a><i class="fa fa-qq"></i></a>
+                          </li>
+                          <el-popover
+                            ref="popover1"
+                            placement="top-start"
+                            width="200"
+                            trigger="click"
+                            popper-class="prop-wechat"
+                            content="这是一段内容,这是一段内容,这是一段内容,这是一段内容。">
+                            <template slot-scope="scope">
+                              <h5>打开微信“扫一扫”，打开网页后点击屏幕右上角分享按钮</h5>
+                              <img
+                                :src="'/api/qrImg?detailLink='+systemConfig.data[0].siteDomain+'/details/'+article.doc._id+'.html'"
+                                :alt="article.doc.title">
+                            </template>
+                          </el-popover>
+                          <li class="wechat">
+                            <a v-popover:popover1>
+                              <i class="fa fa-wechat"></i>
+                            </a>
+                          </li>
+                          <li class="weibo">
+                            <a
+                              :href="'http://service.weibo.com/share/share.php?url='+systemConfig.data[0].siteDomain+'/details/'+article.doc._id+'.html&amp;title='+article.doc.discription+'&amp;pic='+((article.doc.sImg).indexOf('cdn') > -1 ?'':systemConfig.data[0].siteDomain)+article.doc.sImg+'&amp;appkey=902932546 target=_blank'">
+                              <i class="fa fa-weibo"></i>
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
                     </el-col>
-                    <el-col :xs="1" :sm="1" :md="1" :lg="1" :xl="5">
-                        <BackTop/>
-                    </el-col>
-                </el-row>
-        </div>
+                  </el-row>
+                </div>
+                <RandomArticle :articles="article.randomArticles"/>
+                <Messages :userMessageList="messages.data" :contentId="article.doc._id"/>
+              </div>
+            </el-col>
+            <el-col :xs="0" :sm="7" :md="7" :lg="7" class="content-mainbody-right">
+              <div class="grid-content bg-purple-light title">
+                <CatesMenu :typeId="typeId"/>
+                <RecentContents :recentItems="recentArticle"/>
+              </div>
+            </el-col>
+          </el-row>
+        </el-col>
+        <el-col :xs="1" :sm="1" :md="1" :lg="1" :xl="5">
+          <BackTop/>
+        </el-col>
+      </el-row>
     </div>
+  </div>
 </template>
 
-<script lang="babel">
+<script>
     import {
         mapGetters
     } from 'vuex'
@@ -188,8 +194,8 @@
                         }
                     }).catch((err) => {
                             this.$message.error(err.response.data.error)
-                    }); 
-                }  
+                    });
+                }
             },
             searchByTag(name){
                 this.$router.push("/tag/" + name);
@@ -223,6 +229,7 @@
             }
         }
     }
+
 
 </script>
 <style lang="scss">
