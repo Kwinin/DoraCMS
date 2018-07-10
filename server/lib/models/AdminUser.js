@@ -14,21 +14,21 @@ var AdminUserSchema = new Schema({
         type: String,
         
         'default': shortid.generate
-    },
-    name: String,
-    userName: String,
-    password: String,
-    email: String,
-    phoneNum: Number,
-    comments: String,
-    date: { type: Date, default: Date.now },
-    logo: { type: String, default: "/upload/images/defaultlogo.png" },
-    enable: { type: Boolean, default: false },
-    auth: { type : Boolean ,default :false},
+    },//管理员id
+    name: String,//昵称
+    userName: String,//用户名
+    password: String,//密码
+    email: String,//邮箱
+    phoneNum: Number,//电话号码
+    comments: String,//个性签名
+    date: { type: Date, default: Date.now },//添加日期
+    logo: { type: String, default: "/upload/images/defaultlogo.png" },//头像
+    enable: { type: Boolean, default: false },//用户是否有效
+    auth: { type : Boolean ,default :false},//是否是作者
     group: {
         type: String,
         ref: 'AdminGroup'
-    }
+    }//分组
 });
 
 AdminUserSchema.statics = {

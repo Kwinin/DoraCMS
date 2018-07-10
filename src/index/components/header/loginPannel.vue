@@ -10,6 +10,7 @@
                     </span>
                     <el-dropdown-menu slot="dropdown">
                         <el-dropdown-item @click.native="userCenter('contents')">用户中心</el-dropdown-item>
+                        <el-dropdown-item @click.native="adminCenter()">管理中心</el-dropdown-item>
                         <el-dropdown-item @click.native="userCenter('center')">帐号设置</el-dropdown-item>
                         <el-dropdown-item @click.native="logout">退出</el-dropdown-item>
                     </el-dropdown-menu>
@@ -56,6 +57,10 @@ export default {
     },
     userCenter(page) {
       this.$router.push("/users/" + page);
+    },
+    adminCenter() {
+     // this.$router.push("/dr-admin");
+      window.location.href = '/dr-admin';
     },
     logout() {
       api.get("users/logOut").then(result => {

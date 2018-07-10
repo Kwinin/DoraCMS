@@ -36,13 +36,20 @@ export function createRouter() {
         mode: 'history',
         scrollBehavior,
         routes: [
-            { name: 'index', path: '/', component: ArticleList, meta: { typeId: 'indexPage', scrollToTop: true } },
-            { name: 'index', path: '/page/:current(\\d+)?', component: ArticleList, meta: { typeId: 'indexPage', scrollToTop: true } },
-            { name: 'cmscase', path: '/cmscase___:typeId?/:current(\\d+)?', component: CmsCase },
-            { name: 'category', path: '/:cate1?___:typeId?/:current(\\d+)?', component: ArticleList, meta: { scrollToTop: true } },
-            { name: 'category', path: '/:cate0/:cate1?___:typeId?/:current(\\d+)?', component: ArticleList, meta: { scrollToTop: true } },
-            { name: 'search', path: '/search/:searchkey/:current(\\d+)?', component: ArticleList, meta: { typeId: 'search', scrollToTop: true } },
-            { name: 'article', path: '/details/:id', component: Article, meta: { notKeepAlive: true, scrollToTop: true } },
+            { name: 'index', path: '/', component: ArticleList,
+              meta: { typeId: 'indexPage', scrollToTop: true } },
+            { name: 'index', path: '/page/:current(\\d+)?',
+              component: ArticleList, meta: { typeId: 'indexPage', scrollToTop: true } },
+            { name: 'cmscase', path: '/cmscase___:typeId?/:current(\\d+)?',
+              component: CmsCase },
+            { name: 'category', path: '/:cate1?___:typeId?/:current(\\d+)?',
+              component: ArticleList, meta: { scrollToTop: true } },
+            { name: 'category', path: '/:cate0/:cate1?___:typeId?/:current(\\d+)?',
+              component: ArticleList, meta: { scrollToTop: true } },
+            { name: 'search', path: '/search/:searchkey/:current(\\d+)?',
+              component: ArticleList, meta: { typeId: 'search', scrollToTop: true } },
+            { name: 'article', path: '/details/:id',
+              component: Article, meta: { notKeepAlive: true, scrollToTop: true } },
             { name: 'login', path: '/users/login', component: UserLoginForm },
             { name: 'reg', path: '/users/reg', component: UserRegForm },
             { name: 'ucenter', path: '/users/center', component: UserCenter },
@@ -54,7 +61,8 @@ export function createRouter() {
             { name: 'userContents', path: '/users/contents', component: UserContents },
             { name: 'adminlogin', path: '/dr-admin', component: AdminLogin, meta: { typeId: 'adminlogin' } },
             { name: 'sitemap', path: '/sitemap.html', component: SiteMap },
-            { name: 'tagPage', path: '/tag/:tagName/:current(\\d+)?', component: ArticleList, meta: { typeId: 'tags', scrollToTop: true } }
+            { name: 'tagPage', path: '/tag/:tagName/:current(\\d+)?',
+              component: ArticleList, meta: { typeId: 'tags', scrollToTop: true } }
         ]
     })
     return router;

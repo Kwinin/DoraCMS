@@ -1,7 +1,7 @@
 <template>
     <div class="search-pannel">
-        <div class="input-area" v-bind:class="{ active: activeSearch }">
-            <el-input @keyup.enter.native="handleIconClick"  size="small" placeholder="请输入关键字" v-model="searchkey"></el-input>
+        <div class="input-area active" v-bind:class="{ active: activeSearch }">
+            <el-input  size="small" placeholder="请输入关键字" v-model="searchkey"></el-input>
             <i class="fa fa-search" @click="showSearchInput"></i>
         </div>
     </div>

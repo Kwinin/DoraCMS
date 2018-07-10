@@ -221,7 +221,7 @@
             }
             return {
                 title,
-                titleTemplate: '%s | 前端开发俱乐部',
+                titleTemplate: '%s | 文创中心',
                 meta: [
                     { vmid: 'description', name: 'description', content: discription },
                     { vmid: 'keywords', name: 'keywords', content: tagArr.join() }

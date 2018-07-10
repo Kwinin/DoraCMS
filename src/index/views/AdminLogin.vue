@@ -8,7 +8,7 @@
         <el-col :xs="20" :sm="10" :md="8" :lg="8" :xl="6">
           <div class="admin-logo-title">
             <h3>
-              <b style="color:#1D8CE0">Dora</b>CMS</h3>
+              <b style="color:#1D8CE0">CurturalInnovation</b>CMS</h3>
           </div>
           <div class="login-container">
             <el-form :model="adminLoginFormData" :rules="rules" ref="ruleForm" label-width="0px" class="loginForm">
@@ -32,7 +32,7 @@
           </div>
         </el-col>
         <el-col :xs="2" :sm="7" :md="8" :lg="8" :xl="9">
-          <div class="grid-content bg-purple">&nbsp;</div>
+          <div class="grid-con tent bg-purple">&nbsp;</div>
         </el-col>
       </el-row>
     </div>

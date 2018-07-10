@@ -45,7 +45,7 @@
               </el-col>
               <el-col :xs="0" :sm="7" :md="7" :lg="7">
                 <div class="main-right">
-                  <AdsPannel id="r1l6E369Az"/>
+                  <AdsPannel id="ByeMmwlP17"/>
                   <div v-if="checkCateList">
                     <CatesMenu :typeId="$route.params.typeId"/>
                   </div>
